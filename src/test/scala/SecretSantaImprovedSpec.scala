@@ -1,5 +1,6 @@
 import java.io.ByteArrayInputStream
 
+import SecretSantaImproved._
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
@@ -12,7 +13,7 @@ class SecretSantaImprovedSpec extends AnyFlatSpec with Matchers {
     val is = new ByteArrayInputStream(input.getBytes)
 
     Console.withIn(is) {
-      val result = SecretSantaImproved.createListOfNames
+      val result = createListOfNames()
       result should be (List("a", "b", "c", "d", "e"))
       result.size should be (size)
     }
@@ -21,31 +22,31 @@ class SecretSantaImprovedSpec extends AnyFlatSpec with Matchers {
   it should "throw EOFException for no input" in {
     val is = new ByteArrayInputStream("".getBytes)
     Console.withIn(is) {
-      a [java.io.EOFException] should be thrownBy SecretSantaImproved.createListOfNames
+      a [java.io.EOFException] should be thrownBy createListOfNames()
     }
   }
 
   it should "throw NumberFormatException for any non-integers" in {
     val is1 = new ByteArrayInputStream("a".getBytes)
     Console.withIn(is1) {
-      a [NumberFormatException] should be thrownBy SecretSantaImproved.createListOfNames
+      a [NumberFormatException] should be thrownBy createListOfNames()
     }
 
     val is2 = new ByteArrayInputStream("1.1".getBytes)
     Console.withIn(is2) {
-      a [NumberFormatException] should be thrownBy SecretSantaImproved.createListOfNames
+      a [NumberFormatException] should be thrownBy createListOfNames()
     }
   }
 
   it should "throw IllegalArgumentException for input size 0 or negative numbers" in {
     val is1 = new ByteArrayInputStream("0".getBytes)
     Console.withIn(is1) {
-      an [IllegalArgumentException] should be thrownBy SecretSantaImproved.createListOfNames
+      an [IllegalArgumentException] should be thrownBy createListOfNames()
     }
 
     val is2 = new ByteArrayInputStream("-1".getBytes)
     Console.withIn(is2) {
-      an [IllegalArgumentException] should be thrownBy SecretSantaImproved.createListOfNames
+      an [IllegalArgumentException] should be thrownBy createListOfNames()
     }
   }
 
@@ -54,7 +55,7 @@ class SecretSantaImprovedSpec extends AnyFlatSpec with Matchers {
     val is = new ByteArrayInputStream(input.getBytes)
 
     Console.withIn(is) {
-      val result = SecretSantaImproved.getNames
+      val result = getNames
       result should be (input)
     }
   }
@@ -65,27 +66,27 @@ class SecretSantaImprovedSpec extends AnyFlatSpec with Matchers {
     val is = new ByteArrayInputStream(input.getBytes)
 
     Console.withIn(is) {
-      val result = SecretSantaImproved.getNames
+      val result = getNames
       result should be (name)
     }
   }
 
   "randomSelect" should "return a single elem from a list" in {
     val input = List("a", "b", "c", "d", "e", "f")
-    val result = SecretSantaImproved.randomSelect(input)
+    val result = randomSelect(input)
 
     result.isInstanceOf[String] should be (true)
     input.contains(result) should be (true)
   }
 
   it should "throw IllegalArgumentException for an empty list" in {
-    an [IllegalArgumentException] should be thrownBy SecretSantaImproved.randomSelect(Nil)
-    an [IllegalArgumentException] should be thrownBy SecretSantaImproved.randomSelect(List())
+    an [IllegalArgumentException] should be thrownBy randomSelect(Nil)
+    an [IllegalArgumentException] should be thrownBy randomSelect(List())
   }
 
   "pairNames" should "return Mapping of name pairs" in {
     val input = List("a", "b", "c", "d", "e", "f")
-    val result = SecretSantaImproved.pairNames(input)
+    val result = pairNames(input)
 
     result.isInstanceOf[Map[String, String]] should be (true)
     result.foreach { pair =>
@@ -94,7 +95,7 @@ class SecretSantaImprovedSpec extends AnyFlatSpec with Matchers {
   }
 
   it should "return an empty Map for an empty input" in {
-    SecretSantaImproved.pairNames(Nil) should be (Map())
-    SecretSantaImproved.pairNames(List()) should be (Map())
+    pairNames(Nil) should be (Map())
+    pairNames(List()) should be (Map())
   }
 }
