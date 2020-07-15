@@ -2,7 +2,7 @@
 
 This Scala application runs from the terminal.
 
-This repo contains my two solutions from December 2019 (kept inside my scala-practice repo):
+This repo contains my two solutions from December 2019 (originally kept inside my scala-practice repo):
 1. My first using random shuffling until there are valid pairings determined by no-one gifting themselves
 2. My improved solution assigning them methodically
 
